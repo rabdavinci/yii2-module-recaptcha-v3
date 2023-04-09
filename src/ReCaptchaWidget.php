@@ -67,24 +67,26 @@ class ReCaptchaWidget extends InputWidget
         ], $this->options);
 
         $jsCode = <<<JS
-grecaptcha.ready(function () {
-  grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
-    $('#{$inputId}').val(token);
-  });
-});
-$('#{$formId}').on('beforeSubmit', function () {
-  if (!$('#{$inputId}').val()) {
+function recaptchaOnloadCallback() {
     grecaptcha.ready(function () {
       grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
         $('#{$inputId}').val(token);
-        $('#{$formId}').submit();
       });
     });
-    return false;
-  } else {
-    return true;
-  }
-});
+    $('#{$formId}').on('beforeSubmit', function () {
+      if (!$('#{$inputId}').val()) {
+        grecaptcha.ready(function () {
+          grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
+            $('#{$inputId}').val(token);
+            $('#{$formId}').submit();
+          });
+        });
+        return false;
+      } else {
+        return true;
+      }
+    });
+}
 JS;
 
         $this->view->registerJs($jsCode, View::POS_READY);
