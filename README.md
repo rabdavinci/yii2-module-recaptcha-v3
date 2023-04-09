@@ -12,13 +12,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist kekaadrenalin/yii2-module-recaptcha-v3 "*"
+php composer.phar require --prefer-dist rabdavinci/yii2-module-recaptcha-v3 "*"
 ```
 
 or add
 
 ```
-"kekaadrenalin/yii2-module-recaptcha-v3": "*"
+"rabdavinci/yii2-module-recaptcha-v3": "*"
 ```
 
 to the require section of your `composer.json` file.
