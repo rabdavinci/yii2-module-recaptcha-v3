@@ -1,5 +1,5 @@
 {
-    "name": "kekaadrenalin/yii2-module-recaptcha-v3",
+    "name": "rabdavinci/yii2-module-recaptcha-v3",
     "description": "This is reCAPTCHA v3 for Yii2.",
     "type": "yii2-extension",
     "keywords": ["yii2","module","recaptcha v3","captcha","recaptcha 3","Yii2 recaptcha","Yii2 recaptcha 3","Yii2 recaptcha v3"],
@@ -10,8 +10,8 @@
     },
     "authors": [
         {
-            "name": "kekaadrenalin",
-            "email": "kekapor@outlook.com"
+            "name": "rabdavinci",
+            "email": "usmonovgayrat89@gmail.com"
         }
     ],
     "minimum-stability": "stable",
