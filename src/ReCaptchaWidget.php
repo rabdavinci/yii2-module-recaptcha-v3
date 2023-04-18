@@ -56,7 +56,7 @@ class ReCaptchaWidget extends InputWidget
      */
     public function run()
     {
-        $this->_component->registerScript($this->getView());
+      //  $this->_component->registerScript($this->getView());
         $this->field->template = "{input}\n{error}";
         $formId = $this->field->form->id;
         $inputId = Html::getInputId($this->model, $this->attribute);
@@ -67,7 +67,7 @@ class ReCaptchaWidget extends InputWidget
         ], $this->options);
 
         $jsCode = <<<JS
-function recaptchaOnloadCallback() {
+// function recaptchaOnloadCallback() {
     grecaptcha.ready(function () {
       grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
         $('#{$inputId}').val(token);
@@ -86,10 +86,10 @@ function recaptchaOnloadCallback() {
         return true;
       }
     });
-}
+//}
 JS;
 
-        $this->view->registerJs($jsCode, View::POS_READY);
+        $this->view->registerJs($jsCode, View::POS_END);
 
         return Html::activeHiddenInput($this->model, $this->attribute, ['value' => '']);
     }
