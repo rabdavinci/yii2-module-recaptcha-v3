@@ -42,12 +42,20 @@ class ReCaptcha extends \yii\base\Component
     public function registerScript($view)
     {
         $arguments = \http_build_query([
-            'onload' => 'recaptchaOnloadCallback',
+         //   'onload' => 'recaptchaOnloadCallback',
         ]);
         /** @var View $view */
         $view->registerJsFile('https://www.google.com/recaptcha/api.js?render=' . $this->site_key .  '&' . $arguments, [
             'position' => $view::POS_HEAD,
         ], 'recaptcha-v3-script');
+
+//         $jsCode = <<<JS
+// function recaptchaOnloadCallback() {
+   
+// }
+
+// JS;
+//     $view->registerJs($jsCode, $view::POS_END);
     }
 
 
