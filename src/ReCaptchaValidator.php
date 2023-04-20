@@ -49,7 +49,7 @@ class ReCaptchaValidator extends Validator
             throw new InvalidConfigException('Component is required.');
         }
         $this->_component = $component;
-
+        $this->acceptance_score = $component->score;
         if ($this->message === null) {
             $this->message = 'The verification code is incorrect.';
         }
@@ -71,5 +71,4 @@ class ReCaptchaValidator extends Validator
 
         return null;
     }
-
 }
