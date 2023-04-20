@@ -1,8 +1,9 @@
-[![Total Downloads](https://img.shields.io/packagist/dt/kekaadrenalin/yii2-module-recaptcha-v3.svg?style=flat-square)](https://packagist.org/packages/kekaadrenalin/yii2-module-recaptcha-v3) 
+[![Total Downloads](https://img.shields.io/packagist/dt/rabdavinci/yii2-module-recaptcha-v3.svg?style=flat-square)](https://packagist.org/packages/rabdavinci/yii2-module-recaptcha-v3) 
 
 Yii2 reCAPTCHA v3
 =================
 Adds [recaptcha-v3](https://developers.google.com/recaptcha/docs/v3) into yii2 project
+After fork fixed work with AJAX and implemented Global registration
 
 Installation
 ------------
@@ -35,7 +36,7 @@ add this to your components main.php
 'components' => [
     ...
     'reCaptcha3' => [
-        'class'      => 'kekaadrenalin\recaptcha3\ReCaptcha',
+        'class'      => 'rabdavinci\recaptcha3\ReCaptcha',
         'site_key'   => 'site_key_###',
         'secret_key' => 'secret_key_###',
     ],
@@ -53,13 +54,13 @@ public function rules()
 {
  	return [
  		...
- 		 [['reCaptcha'], \kekaadrenalin\recaptcha3\ReCaptchaValidator::className(), 'acceptance_score' => 0]
+ 		 [['reCaptcha'], \rabdavinci\recaptcha3\ReCaptchaValidator::className(), 'acceptance_score' => 0]
  	];
 }
 ```
 
 ```php
-<?= $form->field($model, 'reCaptcha')->widget(\kekaadrenalin\recaptcha3\ReCaptchaWidget::class) ?>
+<?= $form->field($model, 'reCaptcha')->widget(\rabdavinci\recaptcha3\ReCaptchaWidget::class) ?>
 ```
 
 For tests

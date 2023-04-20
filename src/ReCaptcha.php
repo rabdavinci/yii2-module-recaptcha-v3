@@ -1,13 +1,13 @@
 <?php
 
-namespace kekaadrenalin\recaptcha3;
+namespace rabdavinci\recaptcha3;
 
 use Yii;
 use yii\helpers\Json;
 
 /**
  * Class ReCaptcha
- * @package kekaadrenalin\recaptcha3
+ * @package rabdavinci\recaptcha3
  */
 class ReCaptcha extends \yii\base\Component
 {

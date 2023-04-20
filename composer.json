@@ -5,8 +5,8 @@
     "keywords": ["yii2","module","recaptcha v3","captcha","recaptcha 3","Yii2 recaptcha","Yii2 recaptcha 3","Yii2 recaptcha v3"],
     "license": "BSD-3-Clause",
     "support": {
-        "source": "https://github.com/kekaadrenalin/yii2-module-recaptcha-v3",
-        "issues": "https://github.com/kekaadrenalin/yii2-module-recaptcha-v3/issues"
+        "source": "https://github.com/rabdavinci/yii2-module-recaptcha-v3",
+        "issues": "https://github.com/rabdavinci/yii2-module-recaptcha-v3/issues"
     },
     "authors": [
         {
@@ -27,7 +27,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "kekaadrenalin\\recaptcha3\\": "src"
+            "rabdavinci\\recaptcha3\\": "src"
         }
     }
 }

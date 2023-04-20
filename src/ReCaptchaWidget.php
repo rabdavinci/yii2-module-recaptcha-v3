@@ -1,6 +1,6 @@
 <?php
 
-namespace kekaadrenalin\recaptcha3;
+namespace rabdavinci\recaptcha3;
 
 use Yii;
 use yii\base\InvalidConfigException;
@@ -11,7 +11,7 @@ use yii\widgets\InputWidget;
 
 /**
  * Class ReCaptchaWidget
- * @package kekaadrenalin\recaptcha3
+ * @package rabdavinci\recaptcha3
  */
 class ReCaptchaWidget extends InputWidget
 {
