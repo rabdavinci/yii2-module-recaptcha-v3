@@ -48,12 +48,6 @@ class ReCaptchaComponent extends Widget
       throw new InvalidConfigException('component is required.');
     }
     $this->_component = $component;
-
-    $jsCode = <<<JS
-grecaptcha.site_key = '{$this->_component->site_key}';
-JS;
-
-    $this->view->registerJs($jsCode, View::POS_HEAD);
   }
 
   /**

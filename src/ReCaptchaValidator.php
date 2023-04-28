@@ -60,6 +60,10 @@ class ReCaptchaValidator extends Validator
      */
     protected function validateValue($value)
     {
+        if ($value === '') {
+            return [$this->message, []];
+        }
+
         $result = $this->_component->validateValue($value);
         if ($result === false) {
             return [$this->message, []];

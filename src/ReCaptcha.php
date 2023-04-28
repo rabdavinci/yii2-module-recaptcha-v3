@@ -44,20 +44,34 @@ class ReCaptcha extends \yii\base\Component
     public function registerScript($view)
     {
         $arguments = \http_build_query([
-            //   'onload' => 'recaptchaOnloadCallback',
+              'onload' => 'recaptchaOnloadCallback',
         ]);
-        /** @var View $view */
-        $view->registerJsFile('https://www.google.com/recaptcha/api.js?render=' . $this->site_key .  '&' . $arguments, [
-            'position' => $view::POS_HEAD,
-        ], 'recaptcha-v3-script');
+        // /** @var View $view */
+        // $view->registerJsFile('https://www.google.com/recaptcha/api.js?render=' . $this->site_key .  '&' . $arguments, [
+        //     'position' => $view::POS_HEAD,
+        //     'async' => 'async'
+        // ], 'recaptcha-v3-script');
 
-        //         $jsCode = <<<JS
-        // function recaptchaOnloadCallback() {
 
-        // }
+        $script = <<<JS
+        function loadRecaptcha() {
+            var script=document.createElement("script");
+            script.setAttribute("type", "text/javascript");
+            script.setAttribute("src", 'https://www.google.com/recaptcha/api.js?render={$this->site_key}&{$arguments}');
+            document.body.appendChild(script);
+        }
 
-        // JS;
-        //     $view->registerJs($jsCode, $view::POS_END);
+        function recaptchaOnloadCallback() {
+            grecaptcha.site_key = '{$this->site_key}';
+        }
+        
+        setTimeout(function () {
+            loadRecaptcha();
+        }, 3000);
+
+
+        JS;
+        $view->registerJs($script, $view::POS_HEAD);
     }
 
 

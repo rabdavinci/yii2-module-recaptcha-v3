@@ -15,59 +15,61 @@ use yii\widgets\InputWidget;
  */
 class ReCaptchaWidget extends InputWidget
 {
-    /**
-     * Recaptcha component
-     * @var string|array|ReCaptcha
-     */
-    public $component = 'reCaptcha3';
+  /**
+   * Recaptcha component
+   * @var string|array|ReCaptcha
+   */
+  public $component = 'reCaptcha3';
 
-    /**
-     * @var string
-     */
-    public $buttonText = 'Submit';
+  /**
+   * @var string
+   */
+  public $buttonText = 'Submit';
 
-    /**
-     * @var string
-     */
-    public $actionName = 'homepage';
+  /**
+   * @var string
+   */
+  public $actionName = 'homepage';
 
-    /**
-     * @var RecaptchaV3
-     */
-    private $_component = null;
+  /**
+   * @var RecaptchaV3
+   */
+  private $_component = null;
 
-    /**
-     * @inheritdoc
-     * @throws InvalidConfigException
-     */
-    public function init()
-    {
-        parent::init();
-        $component = Instance::ensure($this->component, ReCaptcha::class);
-        if ($component == null) {
-            throw new InvalidConfigException('component is required.');
-        }
-        $this->_component = $component;
+  /**
+   * @inheritdoc
+   * @throws InvalidConfigException
+   */
+  public function init()
+  {
+    parent::init();
+    $component = Instance::ensure($this->component, ReCaptcha::class);
+    if ($component == null) {
+      throw new InvalidConfigException('component is required.');
     }
+    $this->_component = $component;
+  }
 
 
-    /**
-     * @inheritdoc
-     */
-    public function run()
-    {
-      //  $this->_component->registerScript($this->getView());
-        $this->field->template = "{input}\n{error}";
-        $formId = $this->field->form->id;
-        $inputId = Html::getInputId($this->model, $this->attribute);
-        $callbackRandomString = time();
+  /**
+   * @inheritdoc
+   */
+  public function run()
+  {
+    //  $this->_component->registerScript($this->getView());
+    $this->field->template = "{input}\n{error}";
+    $formId = $this->field->form->id;
+    $inputId = Html::getInputId($this->model, $this->attribute);
+    $callbackRandomString = time();
 
-        $options = array_merge([
-            //  'onClick' => "recaptchaCallback_{$callbackRandomString}()"
-        ], $this->options);
+    $options = array_merge([
+      //  'onClick' => "recaptchaCallback_{$callbackRandomString}()"
+    ], $this->options);
 
-        $jsCode = <<<JS
-// function recaptchaOnloadCallback() {
+    $jsCode = <<<JS
+        if(typeof grecaptcha === 'undefined') {
+          grecaptcha = parent.grecaptcha;
+        }
     grecaptcha.ready(function () {
       grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
         $('#{$inputId}').val(token);
@@ -86,11 +88,10 @@ class ReCaptchaWidget extends InputWidget
         return true;
       }
     });
-//}
 JS;
 
-        $this->view->registerJs($jsCode, View::POS_END);
+    $this->view->registerJs($jsCode, View::POS_END);
 
-        return Html::activeHiddenInput($this->model, $this->attribute, ['value' => '']);
-    }
+    return Html::activeHiddenInput($this->model, $this->attribute, ['value' => '']);
+  }
 }
