@@ -63,6 +63,9 @@ class ReCaptcha extends \yii\base\Component
 
         function recaptchaOnloadCallback() {
             grecaptcha.site_key = '{$this->site_key}';
+            if(typeof function_to_execute !== 'undefined') {
+                function_to_execute();
+            }
         }
         
         setTimeout(function () {

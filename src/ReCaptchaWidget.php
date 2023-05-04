@@ -70,24 +70,30 @@ class ReCaptchaWidget extends InputWidget
         if(typeof grecaptcha === 'undefined') {
           grecaptcha = parent.grecaptcha;
         }
-    grecaptcha.ready(function () {
-      grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
-        $('#{$inputId}').val(token);
-      });
-    });
-    $('#{$formId}').on('beforeSubmit', function () {
-      if (!$('#{$inputId}').val()) {
-        grecaptcha.ready(function () {
-          grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
-            $('#{$inputId}').val(token);
-            $('#{$formId}').submit();
-          });
+    var function_to_execute = function() {
+      grecaptcha.ready(function () {
+        grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
+          $('#{$inputId}').val(token);
         });
-        return false;
-      } else {
-        return true;
-      }
-    });
+      });
+      $('#{$formId}').on('beforeSubmit', function () {
+        if (!$('#{$inputId}').val()) {
+          grecaptcha.ready(function () {
+            grecaptcha.execute('{$this->_component->site_key}', {action: '{$this->actionName}'}).then(function (token) {
+              $('#{$inputId}').val(token);
+              $('#{$formId}').submit();
+            });
+          });
+          return false;
+        } else {
+          return true;
+        }
+      })
+    }
+
+    if(typeof grecaptcha !== 'undefined') {
+      function_to_execute();
+    }
 JS;
 
     $this->view->registerJs($jsCode, View::POS_END);
